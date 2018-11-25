@@ -130,11 +130,16 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         }
         headerView = new CourseDetailHeaderView(this, mData.data.head);
         mListView.addHeaderView(headerView);
+
+
         if (footerView != null) {
             mListView.removeFooterView(footerView);
         }
+
         footerView = new CourseDetailFooterView(this, mData.data.footer);
         mListView.addFooterView(footerView);
+
+
 
         mBottomLayout.setVisibility(View.VISIBLE);
     }

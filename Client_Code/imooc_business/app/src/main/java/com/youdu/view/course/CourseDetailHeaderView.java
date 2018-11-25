@@ -98,9 +98,12 @@ public class CourseDetailHeaderView extends RelativeLayout {
         mZanView.setText(mData.zan);
         mScanView.setText(mData.scan);
         mHotCommentView.setText(mData.hotComment);
+
+
         for (String url : mData.photoUrls) {
             mContentLayout.addView(createItem(url));
         }
+
         if (!TextUtils.isEmpty(mData.video.resource)) {
             new VideoAdContext(mVideoLayout,
                     new Gson().toJson(mData.video), null);

@@ -20,17 +20,21 @@ import com.youdu.view.fragment.home.MineFragment;
 
 public class HomeActivity extends BaseActivity implements OnClickListener {
 
+
     private FragmentManager fm;
+
     private HomeFragment mHomeFragment;
     private Fragment mCommonFragmentOne;
     private MessageFragment mMessageFragment;
     private MineFragment mMineFragment;
+
     private Fragment mCurrent;
 
     private RelativeLayout mHomeLayout;
     private RelativeLayout mPondLayout;
     private RelativeLayout mMessageLayout;
     private RelativeLayout mMineLayout;
+
     private TextView mHomeView;
     private TextView mPondView;
     private TextView mMessageView;

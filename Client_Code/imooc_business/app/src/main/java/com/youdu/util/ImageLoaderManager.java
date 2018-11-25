@@ -35,6 +35,9 @@ public class ImageLoaderManager {
     private static ImageLoader mLoader = null;
 
 
+    //单例模式
+
+
     public static ImageLoaderManager getInstance(Context context) {
         if (mInstance == null) {
             synchronized (ImageLoaderManager.class) {
