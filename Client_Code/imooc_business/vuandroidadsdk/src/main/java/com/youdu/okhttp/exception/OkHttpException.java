@@ -8,7 +8,7 @@ package com.youdu.okhttp.exception;
  * @修改历史：2015年8月19日创建初始版本
  **********************************************************/
 public class OkHttpException extends Exception {
-	private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 	/**
 	 * the server return code

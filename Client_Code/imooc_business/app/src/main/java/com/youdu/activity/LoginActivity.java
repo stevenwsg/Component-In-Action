@@ -169,11 +169,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 /**
                  * 这部分可以封装起来，封装为到一个登陆流程类中
                  */
-                User user = (User) responseObj;
-                UserManager.getInstance().setUser(user);//保存当前用户单例对象
-                connectToSever();
-                sendLoginBroadcast();
-                /**
+                 User user = (User) responseObj;
+                 UserManager.getInstance().setUser(user);//保存当前用户单例对象
+                 connectToSever();
+                 sendLoginBroadcast();
+                 /**
                  * 还应该将用户信息存入数据库，这样可以保证用户打开应用后总是登陆状态
                  * 只有用户手动退出登陆时候，将用户数据从数据库中删除。
                  */

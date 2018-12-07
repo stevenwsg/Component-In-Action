@@ -21,7 +21,12 @@ import okhttp3.Response;
 
 /**
  * @author vision
- * @function 专门处理JSON的回调
+ * @function
+ *
+ * 1、异常
+ * 2、数据解析
+ * 3、数据转发
+ *
  */
 public class CommonJsonCallback implements Callback {
 
@@ -64,6 +69,7 @@ public class CommonJsonCallback implements Callback {
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
+                //接口回调    到主线程
                 mListener.onFailure(new OkHttpException(NETWORK_ERROR, ioexception));
             }
         });
@@ -97,7 +103,13 @@ public class CommonJsonCallback implements Callback {
         return tempList;
     }
 
+
+    /*
+    处理服务器返回的数据
+     */
+
     private void handleResponse(Object responseObj) {
+
         if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;
@@ -109,16 +121,21 @@ public class CommonJsonCallback implements Callback {
              */
             JSONObject result = new JSONObject(responseObj.toString());
             if (mClass == null) {
+                //不需要解析，回调到应用层
                 mListener.onSuccess(result);
             } else {
+                //将json数据解析为java对象返回到应用层
+                             //ResponseEntityToModule   自定义的json数据解析类，这里可以使用gson,fastjson等
                 Object obj = ResponseEntityToModule.parseJsonObjectToModule(result, mClass);
                 if (obj != null) {
                     mListener.onSuccess(obj);
                 } else {
+                    //json不合法
                     mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
                 }
             }
         } catch (Exception e) {
+            //其他异常
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }

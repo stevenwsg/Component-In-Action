@@ -168,6 +168,7 @@ public class HttpsUtils {
     }
 
     public static X509TrustManager initTrustManager() {
+        //生成信任管理器基类
         X509TrustManager mTrustManager = new X509TrustManager() {
             @Override
             public X509Certificate[] getAcceptedIssuers() {

@@ -62,8 +62,8 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     private ImageView mFullBtn;
     private ImageView mLoadingBar;
     private ImageView mFrameView;
-    private AudioManager audioManager;
-    private Surface videoSurface;
+    private AudioManager audioManager;//音量控制器
+    private Surface videoSurface;//真正显示帧数据的类
 
     /**
      * Data
@@ -238,6 +238,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         }
     }
 
+    //播放器播放完成回调
     @Override
     public void onCompletion(MediaPlayer mp) {
         if (listener != null) {
@@ -248,6 +249,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         setIsRealPause(true);
     }
 
+    //播放器播放异常回调
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         LogUtils.e(TAG, "do error:" + what);
@@ -271,6 +273,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         return true;
     }
 
+    //播放器 处于就绪状态
     @Override
     public void onPrepared(MediaPlayer mp) {
         LogUtils.i(TAG, "onPrepared");

@@ -40,6 +40,9 @@ public class BaseFragment extends Fragment {
         return true;
     }
 
+
+    //权限申请成功的回调
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {

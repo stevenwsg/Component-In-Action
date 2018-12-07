@@ -21,20 +21,20 @@ import okhttp3.Response;
 
 /**
  * @author qndroid
- * @function 用来发送get, post请求的工具类，包括设置一些请求的共用参数
+ * @function 用来发送get, post请求的工具类，包括设置一些请求的共用参数，https支持
  */
 public class CommonOkHttpClient {
+
+
     private static final int TIME_OUT = 30;
+
     private static OkHttpClient mOkHttpClient;
 
+
+    //client 配置
     static {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        okHttpClientBuilder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
+
 
         /**
          *  为所有请求添加请求头，看个人需求
@@ -49,11 +49,26 @@ public class CommonOkHttpClient {
                 return chain.proceed(request);
             }
         });
-        okHttpClientBuilder.cookieJar(new SimpleCookieJar());
+             okHttpClientBuilder.cookieJar(new SimpleCookieJar());
+
+        //设置超时时间
         okHttpClientBuilder.connectTimeout(TIME_OUT, TimeUnit.SECONDS);
         okHttpClientBuilder.readTimeout(TIME_OUT, TimeUnit.SECONDS);
         okHttpClientBuilder.writeTimeout(TIME_OUT, TimeUnit.SECONDS);
+        //支持重定向
         okHttpClientBuilder.followRedirects(true);
+
+
+
+        //https支持
+        okHttpClientBuilder.hostnameVerifier(new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        });
+
+
         /**
          * trust all the https point
          */
@@ -65,14 +80,6 @@ public class CommonOkHttpClient {
         return mOkHttpClient;
     }
 
-//    /**
-//     * 指定cilent信任指定证书
-//     *
-//     * @param certificates
-//     */
-//    public static void setCertificates(InputStream... certificates) {
-//        mOkHttpClient.newBuilder().sslSocketFactory(HttpsUtils.getSslSocketFactory(certificates, null, null)).build();
-//    }
 
     /**
      * 通过构造好的Request,Callback去发送请求
@@ -82,7 +89,7 @@ public class CommonOkHttpClient {
      */
     public static Call get(Request request, DisposeDataHandle handle) {
         Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new CommonJsonCallback(handle));
+        call.enqueue(new CommonJsonCallback(handle));//CommonJsonCallback Callback回调
         return call;
     }
 

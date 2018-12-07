@@ -13,6 +13,7 @@ import okhttp3.RequestBody;
 /**
  * @author vision
  * @function build the request
+ * 生成request对象
  */
 public class CommonRequest {
     /**
@@ -33,6 +34,7 @@ public class CommonRequest {
      * @return
      */
     public static Request createPostRequest(String url, RequestParams params, RequestParams headers) {
+        //添加请求体
         FormBody.Builder mFormBodyBuild = new FormBody.Builder();
         if (params != null) {
             for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
@@ -48,6 +50,8 @@ public class CommonRequest {
         }
         FormBody mFormBody = mFormBodyBuild.build();
         Headers mHeader = mHeaderBuild.build();
+
+
         Request request = new Request.Builder().url(url).
                 post(mFormBody).
                 headers(mHeader)
